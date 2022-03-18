@@ -1,0 +1,76 @@
+########################################################################################################################
+#                                                                                                                      #
+# .HTACCESS                                                                                                            #
+#                                                                                                                      #
+# Author  : Skyrow                                                                                                     #
+# Date    : 02/04/2021                                                                                                 #
+# Version : 1.0                                                                                                        #
+#                                                                                                                      #
+########################################################################################################################
+
+# REDIRECTION TO HTTPS
+	#
+		# Enabling url rewriting
+		RewriteEngine On
+
+ 		# Redirect the domain to https
+		#RewriteCond %{HTTPS} off
+		#RewriteRule (.*) https://%{HTTP_HOST}%{REQUEST_URI} [R,L]
+
+		# Block the display of folder contents
+		Options -Indexes
+
+# COMPRESSION OF CERTAIN ELEMENTS TO WIN IN RAPID // activate mod_deflate
+	#
+		# Compression of plain text elements, html, css, xml, javascript and php
+		SetOutputFilter DEFLATE
+		AddOutputFilterByType DEFLATE text/plain text/html text/css text/xml text/javascript application/x-javascript application/x-httpd-php
+ 
+		# Do not compress the images gif, jpg, jpeg and png
+		SetEnvIfNoCase Request_URI \
+		\.(?:gif|jpe?g|png)$ no-gzip dont-vary
+
+# CACHING CERTAIN ELEMENTS TO WIN IN RAPID // activate mod_expires
+	#
+		# Enabling caching
+		ExpiresActive On
+
+		# Validity of items in the client cache for a week
+		ExpiresByType text/css "modification plus 1 week"
+		ExpiresByType text/xml "modification plus 1 week"
+		ExpiresByType text/javascript "modification plus 1 week"
+		ExpiresByType application/x-javascript "access plus 1 week"
+
+		# Validity of items in the client cache during a month
+		ExpiresByType text/plain "modification plus 1 month"
+		ExpiresByType image/gif "access plus 1 month"
+		ExpiresByType image/jpg "access plus 1 month"
+		ExpiresByType image/jpeg "access plus 1 month"
+		ExpiresByType image/png "access plus 1 month"
+		ExpiresByType image/x-icon "access plus 1 month"
+
+# OTHER IMPORTANT THINGS
+	#
+		# Default character set
+		AddDefaultCharset utf-8
+
+		# Pages
+		RewriteRule ^settings/?$ settings.php [L,QSA]
+
+		RewriteRule ^fields/?$ fields.php [L,QSA]
+
+		RewriteRule ^field/?$ field.php [L,QSA]
+		RewriteRule ^field/([a-z]+)/?$ field.php?action=$1 [L,QSA]
+		RewriteRule ^field/add/([a-z]+)/?$ field.php?action=add&type=$1 [L,QSA]
+		RewriteRule ^field/([a-z]+)/([0-9]+)/?$ field.php?action=$1&id=$2 [L,QSA]
+
+		RewriteRule ^subfield/?$ subfield.php [L,QSA]
+		RewriteRule ^subfield/([0-9]+)/?$ subfield.php?field_id=$1 [L,QSA]
+		RewriteRule ^subfield/([0-9]+)/([a-z]+)/?$ subfield.php?field_id=$1&action=$2 [L,QSA]
+		RewriteRule ^subfield/([0-9]+)/([a-z]+)/([0-9]+)/?$ subfield.php?field_id=$1&action=$2&id=$3 [L,QSA]
+
+		RewriteRule ^wordings/?$ wordings.php [L,QSA]
+
+		RewriteRule ^wording/?$ wording.php [L,QSA]
+		RewriteRule ^wording/([a-z]+)/?$ wording.php?action=$1 [L,QSA]
+		RewriteRule ^wording/([a-z]+)/([0-9]+)/?$ wording.php?action=$1&id=$2 [L,QSA]

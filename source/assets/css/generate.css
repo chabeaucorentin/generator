@@ -1,0 +1,31 @@
+/*
+	generate.css
+
+	Nom du projet : Generator
+	Description : Systeme de generation d'enonces
+	Auteur : COCO
+	Auteur URI : https://www.skyrow.com/
+	Version : 1.0
+
+	Copyrights (c) 2021 Skyrow, All Rights Reserved
+*/
+
+@charset "UTF-8";
+
+.page-header h1 {
+	font-weight: 600;
+}
+
+@media print {
+	.header-right-icons {
+		display: none;
+	}
+}
+
+.generate h1 {
+	margin-bottom: 0.46em;
+}
+
+.generate div {
+	margin-bottom: 1em;
+}
